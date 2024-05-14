@@ -4,23 +4,29 @@ import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 
 
+function deriveActivePlayer(gameTurns) {
+
+  let currentPlayer = 'X';
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X') {
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+
+}
+
 
 function App() {
 
   const [gameTurns, setGameTurns] = useState([]);
-  //we are deriving the gameboard from this array of turns
-  //We don't need state to keep track of the user. This information can be derived (from gameturns)
 
-  const [activePlayer, setActivePlayer] = useState('X');
+  const activePlayer = deriveActivePlayer(gameTurns);
+
 
   function handleSelectSquare(rowIndex, colIndex) {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === 'X' ? 'O' : 'X'));
 
     setGameTurns((prevTurns) => {
-      let currentPlayer = 'X';
-      if (prevTurns.length > 0 && prevTurns[0].player === 'X') {
-        currentPlayer = 'O';
-      }
+      const currentPlayer = deriveActivePlayer(prevTurns)
 
       const updatedTurns = [{ square: { row: rowIndex, col: colIndex }, player: currentPlayer }, ...prevTurns];
 

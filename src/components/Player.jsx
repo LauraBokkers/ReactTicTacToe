@@ -7,10 +7,6 @@ export default function Player({ initialName, symbol, isActive }) {
 
     function handleEditClick() {
         setIsEditing(editing => !editing);
-        //when updating state based on the previous value, you should pass a function
-        // You shouldn't do it like this: !isEditing
-        //This is because the state update is scheduled by React to be performed in the future (not instant)
-        // Using a function, you'll be guaranteed to work with the latest updated value
     }
 
     function handleChange(event) {
